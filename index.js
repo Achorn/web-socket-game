@@ -41,6 +41,8 @@ wsServer.on("request", (request) => {
         method: "create",
         game: games[gameId],
       };
+
+      console.log(`creating game with ID: ${gameId}`);
       const con = clients[clientId].connection;
       con.send(JSON.stringify(payLoad));
     }
@@ -61,6 +63,8 @@ wsServer.on("request", (request) => {
         game: game,
       };
       // loop through all clients and update everyone one
+      console.log(`Player ${clientId} joining game: ${gameId}`);
+
       game.clients.forEach((client) => {
         clients[client.clientId].connection.send(JSON.stringify(payLoad));
       });
@@ -91,6 +95,7 @@ wsServer.on("request", (request) => {
     connection: connection,
   };
 
+  console.log(`Player ${clientId} joined server:`);
   const payLoad = {
     method: "connect",
     clientId: clientId,
