@@ -11,6 +11,7 @@
     <button id="btnJoin">Join Game</button>
     <input type="text" id="txtGameId" />
     <div id="divPlayers"></div>
+    <div id="divBoard"></div>
     <script>
       //HTML elements
       let clientId = null;
@@ -24,7 +25,7 @@
 
       //wiring events
       btnJoin.addEventListener("click", (e) => {
-        if (!gameId === null) gameId = txtGameId.value;
+        if (gameId === null) gameId = txtGameId.value;
         const payLoad = {
           method: "join",
           clientId: clientId,
@@ -64,8 +65,17 @@
         // join
         if (response.method === "join") {
           const game = response.game;
-          game.clients.forEach((client) => {
-            while (!divPlayers.firstChild()) divPlayers.removeChild();
+
+          while (divPlayers.firstChild) {
+            divPlayers.removeChild(divPlayers.lastChild);
+          }
+
+          game.clients.forEach((c) => {
+            const d = document.createElement("div");
+            d.style.width = "200px";
+            d.style.background = c.color;
+            d.textContent = c.clientId;
+            divPlayers.appendChild(d);
           });
           // clientId = response.clientId;
           console.log(
