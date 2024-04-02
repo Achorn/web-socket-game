@@ -11,7 +11,6 @@ httpServer.listen(9090, () => console.log("listening... on 9090"));
 
 const clients = {};
 const games = {};
-// // clients[clientId]
 
 const wsServer = new webSocketServer({
   httpServer: httpServer,
@@ -24,7 +23,6 @@ wsServer.on("request", (request) => {
   connection.on("close", () => console.log("closed!"));
   connection.on("message", (message) => {
     const result = JSON.parse(message.utf8Data);
-    //i have received a message form client
 
     //user wants to create new game
     if (result.method === "create") {
@@ -35,6 +33,7 @@ wsServer.on("request", (request) => {
         id: gameId,
         balls: 20,
         clients: [],
+        state: {},
       };
       const payLoad = {
         method: "create",

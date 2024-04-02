@@ -30,7 +30,7 @@
 
       //wiring events
       btnJoin.addEventListener("click", (e) => {
-        if (gameId === null) gameId = txtGameId.value;
+        if (txtGameId.value) gameId = txtGameId.value;
         const payLoad = {
           method: "join",
           clientId: clientId,
