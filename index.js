@@ -16,7 +16,7 @@ const httpServer = http.createServer((req, res) => {
 });
 
 httpServer.listen(process.env.PORT || 9090, () =>
-  console.log("listening... on 9090")
+  console.log(`listening... on ${process.env.POR}`)
 );
 
 const clients = {};
