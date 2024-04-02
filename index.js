@@ -64,7 +64,26 @@ wsServer.on("request", (request) => {
         clients[client.clientId].connection.send(JSON.stringify(payLoad));
       });
     }
+
+    if (result.method == "play") {
+      const { gameId, ballId, color } = result;
+      let state = games[gameId].state;
+      if (!state) state = {};
+      state[ballId] = color;
+
+      games[gameId].state = state;
+      const game = games[gameId];
+
+      const payLoad = {
+        method: "update",
+        game: game,
+      };
+      game.clients.forEach((c) => {
+        clients[c.clientId].connection.send(JSON.stringify(payLoad));
+      });
+    }
   });
+
   //generate new clientId
   const clientId = guid();
   clients[clientId] = {
