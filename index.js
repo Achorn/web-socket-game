@@ -5,15 +5,7 @@ require("dotenv").config();
 // app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 // app.listen(9091, () => console.log("listening on http port 9091"));
 
-const httpServer = http.createServer((req, res) => {
-  res.setHeader("Access-Control-Allow-Headers", req.header.origin);
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "*"
-  ); /* @dev First, read about security */
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
-  res.setHeader("Access-Control-Max-Age", 2592000); // 30 days
-});
+const httpServer = http.createServer();
 
 httpServer.listen(process.env.PORT || 9090, () =>
   console.log(`listening... on ${process.env.POR}`)
